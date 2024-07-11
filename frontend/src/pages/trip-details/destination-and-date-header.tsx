@@ -1,18 +1,42 @@
 import { MapPin, Calendar, Settings2 } from "lucide-react";
 import { Button } from "../../components/button";
+import { useParams } from "react-router-dom";
+import { api } from "../../lib/axios";
+import { useEffect, useState } from "react";
+import { format } from "date-fns";
+
+interface Trip{
+    id: string
+    destination: string
+    starts_at: string
+    ends_at: string
+    is_confirmed: boolean
+}
 
 export function DestinationAndDateHeader(){
+
+    const {tripId} = useParams()
+    const [trip, setTrip] = useState<Trip | undefined>()
+
+    useEffect(() => {
+        api.get(`/trips/${tripId}`).then(response => setTrip(response.data.trip))
+    }, [tripId])
+
+    const displayedDate = trip
+        ? format(trip.starts_at, "d' de 'LLL").concat(' até ').concat(format(trip.ends_at, "d' de 'LLL"))
+        : null
+
     return(
         <div className="bg-zinc-900 px-4 h-16 rounded-xl shadow-shape flex items-center justify-between">
             <div className="flex items-center gap-2">
                 <MapPin className="text-zinc-400 size-5" />
-                <span>Florianópolis, Brasil</span>
+                <span>{trip?.destination}</span>
             </div>
 
             <div className="flex items-center gap-5">
                 <div className="flex items-center gap-2">
                     <Calendar className="text-zinc-400 size-5" />
-                    <span>17 a 23 de Agosto</span>
+                    <span>{displayedDate}</span>
 
                     <div className="w-px h-6 bg-zinc-800"/>
 

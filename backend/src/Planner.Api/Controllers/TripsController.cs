@@ -39,7 +39,7 @@ public class TripsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet()]
+    [HttpGet]
     [Route("{id}")]
     [ProducesResponseType(typeof(ResponseTripJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorsJson), StatusCodes.Status404NotFound)]
