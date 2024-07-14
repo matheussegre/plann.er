@@ -37,4 +37,4 @@ Também utilizei o DbBrowser for SQLite para a manipulação do banco de dados, 
 [vite]: https://vitejs.dev/guide/
 
 <!-- Images -->
-[hero-image]: images/heroimage.png
+[hero-image]: images/image-hero.png
